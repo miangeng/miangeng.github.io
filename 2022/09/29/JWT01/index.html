@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>一文了解JWT的优劣势 | 敲码小吴</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="一文了解JWT的优劣势 | 敲码小吴">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="1.1.什么是Docker微服务虽然具备各种各样的优势，但服务的拆分通用给部署带来了很大的麻烦。  分布式系统中，依赖的组件非常多，不同组件之间部署时往往会产生一些冲突。 在数百上千台服务中重复部署，环境不一定一致，会遇到各种问题  1.1.1.应用部署的环境问题大型项目组件较多，运行环境也较为复杂，部署时会碰到一些问题：  依赖关系复杂，容易出现兼容性问题  开发、测试、生产环境有差异">
+<meta property="og:type" content="article">
+<meta property="og:title" content="reids基础">
+<meta property="og:url" content="http://example.com/2022/11/27/reids/index.html">
+<meta property="og:site_name" content="敲码小吴">
+<meta property="og:description" content="1.1.什么是Docker微服务虽然具备各种各样的优势，但服务的拆分通用给部署带来了很大的麻烦。  分布式系统中，依赖的组件非常多，不同组件之间部署时往往会产生一些冲突。 在数百上千台服务中重复部署，环境不一定一致，会遇到各种问题  1.1.1.应用部署的环境问题大型项目组件较多，运行环境也较为复杂，部署时会碰到一些问题：  依赖关系复杂，容易出现兼容性问题  开发、测试、生产环境有差异">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-27T07:00:40.000Z">
+<meta property="article:modified_time" content="2022-11-27T07:05:49.675Z">
+<meta property="article:author" content="爱敲码的小吴">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/avatar.jpg"/>
+</a>
+<div class="author">
+    <span>爱敲码的小吴</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="rss"
+               href="/atom.xml"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-rss"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="github"
+               href="https://github.com/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="facebook"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-facebook"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+            <a title="instagram"
+               href="https://www.facebook.com/faker.tops"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-instagram"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+            <a title="jianshu"
+               href="https://www.jianshu.com/u/ff56736de7cf"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-jianshu"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+    
+        
+            <a title="oschina"
+               href="https://my.oschina.net/yelog"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-oschina"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+    
+        
+            <a title="email"
+               href="mailto:1667623738@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=1667623738&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="kugou"
+               href="https://www.kugou.com/"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-kugou"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="neteasemusic"
+               href="https://music.163.com/#/user/home?id=88151013"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-neteasemusic"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="全部文章">全部文章
+            
+                <small>(6)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后端">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        后端
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="后端<--->大前端">
+                                        
+                                        大前端
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                                <li>
+                                    <div data-rel="后端<--->spring">
+                                        
+                                        spring
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="网络安全">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        网络安全
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="网络安全<--->JWT">
+                                        
+                                        JWT
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="运维">
+                        
+                        运维
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+            <a class="about  hasFriend  site_url"
+               
+               href="/about">关于</a>
+        
+        <a style="width: 50%"
+                
+                                           class="friends">友链</a>
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="6">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">全部文章</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+    </div>
+
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        
+        <a id="top" class="全部文章 运维 "
+           href="/2022/11/27/text/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="text">text</span>
+            <span class="post-date" title="2022-11-27 13:29:03">2022/11/27</span>
+        </a>
+        
+        
+        <a  class="全部文章 后端 大前端 "
+           href="/2022/11/27/reids/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="reids基础">reids基础</span>
+            <span class="post-date" title="2022-11-27 15:00:40">2022/11/27</span>
+        </a>
+        
+        
+        <a  class="全部文章 后端 spring "
+           href="/2022/11/27/spring/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="spring">spring</span>
+            <span class="post-date" title="2022-11-27 14:48:43">2022/11/27</span>
+        </a>
+        
+        
+        <a  class="全部文章 "
+           href="/2022/11/27/it/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="it">it</span>
+            <span class="post-date" title="2022-11-27 13:27:06">2022/11/27</span>
+        </a>
+        
+        
+        <a  class="全部文章 "
+           href="/2022/11/26/hello-world/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Hello World">Hello World</span>
+            <span class="post-date" title="2022-11-26 21:08:27">2022/11/26</span>
+        </a>
+        
+        
+        <a  class="全部文章 网络安全 JWT "
+           href="/2022/09/29/JWT01/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="一文了解JWT的优劣势">一文了解JWT的优劣势</span>
+            <span class="post-date" title="2022-09-29 14:06:32">2022/09/29</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-JWT01" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">一文了解JWT的优劣势</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="网络安全">网络安全</a> > 
+            
+            <a  data-rel="网络安全&lt;---&gt;JWT">JWT</a>
+            
+        </span>
+        
+        
+    </div>
+    <div class="article-meta">
+        
+            发布时间 : <time class="date" title='最后更新: 2022-11-29 14:08:45'>2022-09-29 14:06</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JWT%E6%B5%81%E4%BC%A0%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">JWT流传的优势</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%93%E4%BA%8E%E6%B0%B4%E5%B9%B3%E6%89%A9%E5%B1%95%EF%BC%9F"><span class="toc-text">易于水平扩展？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E5%8A%A0%E5%AE%89%E5%85%A8"><span class="toc-text">更加安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="toc-text">内置过期时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B2%E6%AD%A2CSRF%E6%94%BB%E5%87%BB"><span class="toc-text">防止CSRF攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E4%BA%8E%E9%98%BB%E6%AD%A2Cookies%E7%9A%84%E7%94%A8%E6%88%B7"><span class="toc-text">适用于阻止Cookies的用户</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JWT%E7%9A%84%E5%8A%A3%E5%8A%BF"><span class="toc-text">JWT的劣势</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E8%B4%B9%E7%A9%BA%E9%97%B4"><span class="toc-text">更费空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%B4%E4%B8%8D%E5%AE%89%E5%85%A8"><span class="toc-text">更不安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E5%8D%95%E7%8B%AC%E9%94%80%E6%AF%81"><span class="toc-text">无法单独销毁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BB%B6%E8%BF%9F"><span class="toc-text">数据延迟</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JWT%E9%80%82%E5%90%88%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">JWT适合做什么？</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-4 i,
+    .toc-level-4 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>JSON Web Tokens，又称 <code>JWT</code>。本文将详解：为何 JWT 不适合存储 Session，以及 JWT 引发的安全隐患。望各位对<code>JWT</code>有更深的理解！</p>
+<p>十分不幸，我发现越来越多的人开始推荐使用 JWT 管理网站的用户会话（<code>Session</code>）。在本文中，我将说明为何这是个非常非常不成熟的想法。</p>
+<p>为了避免疑惑和歧义，首先定义一些术语：</p>
+<ul>
+<li>无状态 JWT（<code>Stateless JWT</code>）：包含 Session 数据的 JWT Token。Session 数据将被直接编码进 Token 内。</li>
+<li>有状态 JWT（<code>Stateful JWT</code>）：包含 Session 引用或其 ID 的 JWT Token。Session 数据存储在服务端。</li>
+<li><code>Session token</code>（又称 <code>Session cookie</code>）：标准的、可被签名的 Session ID，例如各类 Web 框架（译者注：包括 Laravel）内已经使用了很久的 Session 机制。Session 数据同样存储在服务端。</li>
+</ul>
+<p>需要澄清的是：本文并非挑起「<code>永远不要使用 JWT</code>」的争论 —— 只是想说明 JWT 并不适合作为 Session 机制，且十分危险。JWT 在其它方面的确有其用武之地。本文结尾，我将简短地介绍一些合理用途。</p>
+<h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>很多人错误地尝试比较 <code>Cookies</code> 和 <code>JWT</code>。这种对比毫无意义，就像对比内存和硬盘一样。Cookies 是一种存储机制，然而 JWT Tokens 是被加密并签名后的令牌。</p>
+<p>它们并不对立 —— 相反，他们可以独立或结合使用。正确的对比应当是：<code>Session</code> 对比 <code>JWT</code>，以及 <code>Cookies</code> 对比 <code>Local Storage</code>。</p>
+<h3 id="JWT流传的优势"><a href="#JWT流传的优势" class="headerlink" title="JWT流传的优势"></a>JWT流传的优势</h3><h4 id="易于水平扩展？"><a href="#易于水平扩展？" class="headerlink" title="易于水平扩展？"></a>易于水平扩展？</h4><p>这是列表中唯一一条在技术层面部分正确的「好处」，但前提是你使用的是无状态 JWT Tokens。然而事实上，几乎没人需要这种横向扩展能力。有很多更简单的拓展方式，除非你在运维像淘宝这样体量的系统，否则根本不需要无状态的会话。</p>
+<p>一些扩展有状态会话（<code>Stateful sessions</code>）的例子：</p>
+<ol>
+<li><strong>「在单台服务器上运行多个后端进程」</strong> ：只需在此服务器上安装 Redis 服务用于存储 Session 即可。</li>
+<li><strong>「运行多台服务器」</strong> ：只需一台专用的 Redis 服务器用于存储 Session 即可。</li>
+<li><strong>「在多集群内运行多台服务器」</strong> ：会话保持（又称：粘滞会话）。</li>
+</ol>
+<p>以上所有场景在现有软件系统内都具备良好的支持，你的应用需要进行特殊处理的可能性基本为零。</p>
+<h4 id="更加安全"><a href="#更加安全" class="headerlink" title="更加安全"></a>更加安全</h4><p>一大批人认为 JWT Tokens「更加安全」，理由是使用了加密技术。实际上，签名后的 Cookies 比未签名的 Cookies 同样更加安全，但这绝不是 JWT 独有的，优秀的 Session 实现均使用签名后的 Cookies（译者注：例如 Laravel）。</p>
+<p>「使用加密技术」并不能神奇地使某些东西更加安全，它必须服务于特定目的，并且是针对该目的的有效解决方案。错误地使用加密反而可能会降低安全性。</p>
+<p>另一个我听过很多次的对于「更加安全」的论述是「JWT 不使用 Cookies 传输 Tokens」。这实在是太荒谬了，Cookie 只不过是一条 HTTP 头信息，使用 Cookies 并不会造成任何不安全。事实上，Cookies 受到特别良好的保护，用于防止恶意的客户端代码。</p>
+<p>如果担心有人拦截掉你的 Session cookies，那你应当考虑使用 TLS。如果不使用 TLS，任何类型的 Session 机制都可能被拦截，包括 JWT。</p>
+<h4 id="内置过期时间"><a href="#内置过期时间" class="headerlink" title="内置过期时间"></a>内置过期时间</h4><p>无意义，又没什么卵用的特性。在服务端也能实现过期控制，有不少 Session 实现就是这么做的。实际上，服务端的过期控制更加合理，这样你的应用就可以清除不再需要的 Session 数据；若使用无状态 JWT Tokens 且依赖于它的过期机制，则无法执行此操作。</p>
+<p>这个过期时间在某些场景实际上是增加了复杂度的。</p>
+<h4 id="防止CSRF攻击"><a href="#防止CSRF攻击" class="headerlink" title="防止CSRF攻击"></a>防止CSRF攻击</h4><p>这个真真的没有。存储 JWT Tokens 的方式大概有两种：</p>
+<ul>
+<li><strong>「存入 Cookie」</strong> ：仍然易受 CSRF 攻击，还是需要进行特殊处理，保护其不受攻击。</li>
+<li><strong>「其他地方，例如 Local Storage」</strong> ：虽然不易受到 CSRF 攻击，但你的网站需要 JavaScript 才能正常访问；并且又引发了另一个完全不同，或许更加严重的漏洞。我将在后文详细说明。</li>
+</ul>
+<p>预防 CSRF 攻击唯一的正确方法，就是使用 CSRF Tokens。Session 机制与此无关。</p>
+<h4 id="适用于阻止Cookies的用户"><a href="#适用于阻止Cookies的用户" class="headerlink" title="适用于阻止Cookies的用户"></a>适用于阻止Cookies的用户</h4><p>不太可能。用户通常会阻止任何意义上的持久化数据，而不是只禁止 Cookies。例如，Local Storage 以及任何能够持久化 Session 的存储机制（无论是否使用 JWT）。不管你出于多么简单的目的使用 JWT 都无济于事，这是另一个完全独立的问题了。另外，试图让身份认证过程在没有 Cookies 的情况下正常进行，基本没戏。</p>
+<p>最重要的是，禁用掉所有 Cookies 的多数用户都明白这会导致身份认证无法使用，他们会单独解锁那些他们比较关心的站点。这并不是你 —— 一个 Web 开发者应当解决的问题。更好的方案是，向你的用户们详细地解释为何你的网站需要 Cookies 才能使用。</p>
+<h3 id="JWT的劣势"><a href="#JWT的劣势" class="headerlink" title="JWT的劣势"></a>JWT的劣势</h3><p>以上，我已经对常见的误解做了说明，以及为什么它们是错误的。你或许在想：「这好像也没什么大不了的，即便 JWT 无法带来任何好处，但也不会造成什么影响」，那你真是大错特错了。</p>
+<p>使用 JWT 作为 Session 机制存在很多缺点，其中一部分会造成严重的安全问题。</p>
+<h4 id="更费空间"><a href="#更费空间" class="headerlink" title="更费空间"></a>更费空间</h4><p>WT Tokens 实际上并不「小」。尤其是使用无状态 JWT 时，所有的数据将会被直接编码进 Tokens 内，很快将会超过 Cookies 或 URL 的长度限制。你可能在想将它们存储到 Local Storage，然而…</p>
+<h4 id="更不安全"><a href="#更不安全" class="headerlink" title="更不安全"></a>更不安全</h4><p>若将 JWT Tokens 存储到 Cookies 内，那么安全性与其他 Session 机制无异。但如果你将 JWT 存储至其它地方，会导致一个新的漏洞，尤其是「Storing sessions」这一部分。</p>
+<blockquote>
+<p>Local Storage，一个 HTML5 内很棒的功能，使浏览器支持 Key&#x2F;Value 存储。所以我们应当将 JWT Tokens 存储到 Local Storage 吗？考虑到这些 Tokens 可能越来越大，或许会很有用。Cookies 通常在 4k 左右的存储时比较占优势，对于较大的 Tokens，Cookies 可能无法胜任，而 Local Storage 或许成了明确的解决方案。然而，Local Storage 并没有提供任何类似 Cookies 的安全措施。LocalStorage 与 Cookies 不同，并不会在每次请求时发送存储的数据。获取数据的唯一方法是使用 JavaScript，这意味着任何攻击者注入的 JavaScript 脚本只需通过内容安全策略检查，就能任意访问或泄露数据。不光是这样，JavaScript 并不在意或追踪数据是否通过 HTTPS 发送。就 JavaScript 而言，它就只是个数据而已，浏览器会像操作其它数据一样来处理它。在历代工程师们经历了各种麻烦之后，终于能够确保没有人可以恶意接触到我们的 Cookies，然而我们却试图忽略这些经验。这对我来说似乎是在退步。</p>
+</blockquote>
+<h4 id="无法单独销毁"><a href="#无法单独销毁" class="headerlink" title="无法单独销毁"></a>无法单独销毁</h4><p>还有更多安全问题。不像 Sessions 无论何时都可以单独地在服务端销毁。无状态 JWT Tokens 无法被单独的销毁。根据 JWT 的设计，无论怎样 Tokens 在过期前将会一直保持有效。举个例子，这意味着在检测到攻击时，你却不能销毁攻击者的 Session。同样，在用户修改密码后，也无法销毁旧的 Sessions。</p>
+<p>对此，我们几乎无能为力，除非重新构建复杂且有状态（<code>Stateful</code>）的基础设施来明确地检测或拒绝特定 Session，否则将无法结束会话。但这完全违背了使用无状态 JWT Tokens 的最初目的。</p>
+<h4 id="数据延迟"><a href="#数据延迟" class="headerlink" title="数据延迟"></a>数据延迟</h4><p>与上文的安全问题类似，还有另一个潜在的安全隐患。就像缓存，在无状态 Tokens 内存储的数据最终会「过时」，不再反映数据库内最新的数据。</p>
+<p>这意味着，Tokens 内保留的可能是过期的信息，例如：用户在个人信息页面修改过的旧 URL。更严肃点讲，也可能是个具备 <code>admin</code> 权限的 Token，即使你已经废除了 <code>admin</code> 权限。因为无法销毁这些 Tokens，所以面对需要移除的管理员权限，除非关闭整个系统，别无他法。</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>无状态 JWT Tokens 无法被单独地销毁或更新，取决于你如何存储，可能还会导致长度问题、安全隐患。有状态 JWT Tokens 在功能方面与 Session cookies 无异，但缺乏生产环境的验证、经过大量 Review 的实现，以及良好的客户端支持。</p>
+<h3 id="JWT适合做什么？"><a href="#JWT适合做什么？" class="headerlink" title="JWT适合做什么？"></a>JWT适合做什么？</h3><p>在本文之初，我就提到 JWT 虽然不适合作为 Session 机制，但在其它方面的确有它的用武之地。该主张依旧成立，JWT 特别有效的使用例子通常是作为一次性的授权令牌。</p>
+<p>举个例子，你有个文件服务，用户必须认证后才能下载文件，但文件本身存储在一台完全分离且无状态的「下载服务器」内。在这种情况下，你可能想要「应用服务器（服务器 A）」颁发一次性的「下载 Tokens」，用户能够使用它去「下载服务器（服务器 B）」获取需要的文件。</p>
+<p>以这种方式使用 JWT，具备几个明确的特性：</p>
+<ul>
+<li>Tokens 生命期较短。它们只需在几分钟内可用，让客户端能够开始下载。</li>
+<li>Tokens 仅单次使用。应用服务器应当在每次下载时颁发新的 Token。所以任何 Token 只用于一次请求就会被抛弃，不存在任何持久化的状态。</li>
+<li>应用服务器依旧使用 Sessions。仅仅下载服务器使用 Tokens 来授权每次下载，因为它不需要任何持久化状态。</li>
+</ul>
+<p>正如以上你所看到的，结合 Sessions 和 JWT Tokens 有理有据。它们分别拥有各自的目的，有时候你需要两者一起使用。只是不要把 JWT 用作 <strong>「持久的、长期的」</strong> 数据就好。</p>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1667623738@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Wu
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
