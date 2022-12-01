@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Hello World | 敲码小吴</title>
+  <title>优雅的使用HTTP客户端 | 敲码小吴</title>
   <meta name="keywords" content="">
-  <meta name="description" content="Hello World | 敲码小吴">
+  <meta name="description" content="优雅的使用HTTP客户端 | 敲码小吴">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="在 Java 的世界中，Http 客户端之前一直是 Apache 家的 HttpClient 占据主导，但是由于此包较为庞大，API 又比较难用，因此并不适用很多场景。 新兴的 OkHttp、Jodd-http 固然好用，但是面对一些场景时，学习成本还是有一些的。很多时候，我们想追求轻量级的 Http 客户端，并且追求简单易用。而 OKHttp 是一套处理 HTTP 网络请求的依赖库，由 Squa">
 <meta property="og:type" content="article">
@@ -483,19 +483,27 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-java" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Hello World</h1>
+        <h1 class="article-title">优雅的使用HTTP客户端</h1>
     
     <div class="article-meta">
         
         
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Java">Java</a>
+            
+        </span>
         
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-11-26 21:08:27'>2022-11-26 21:08</time>
+            发布时间 : <time class="date" title='最后更新: 2022-12-01 19:59:26'>2022-12-01 19:57</time>
         
     </div>
     <div class="article-meta">
@@ -517,7 +525,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OKHttpUtil-%E5%8A%9F%E8%83%BD"><span class="toc-text">OKHttpUtil 功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OKHttpUtil-%E4%BD%BF%E7%94%A8"><span class="toc-text">OKHttpUtil 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GET"><span class="toc-text">GET</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST"><span class="toc-text">POST</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-text">文件上传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6"><span class="toc-text">下载文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Http3Request-%E9%93%BE%E5%BC%8F%E8%AF%B7%E6%B1%82"><span class="toc-text">Http3Request 链式请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E6%97%A5%E5%BF%97"><span class="toc-text">开启日志</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8-Springboot-%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="toc-text">在 Springboot 中使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E5%B0%81%E8%A3%85%E5%A4%96%E9%83%A8%E6%8E%A5%E5%8F%A3"><span class="toc-text">如何快速封装外部接口</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -533,19 +541,261 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
+        <p>在 Java 的世界中，Http 客户端之前一直是 Apache 家的 HttpClient 占据主导，但是由于此包较为庞大，API 又比较难用，因此并不适用很多场景。</p>
+<p>新兴的 OkHttp、Jodd-http 固然好用，但是面对一些场景时，学习成本还是有一些的。很多时候，我们想追求轻量级的 Http 客户端，并且追求简单易用。而 OKHttp 是一套处理 HTTP 网络请求的依赖库，由 Square 公司设计研发并开源，目前可以在 Java 和 Kotlin 中使用。对于 Android App 来说，OkHttp 现在几乎已经占据了所有的网络请求操作，对于服务器端请求外部接口也是必备的选择。</p>
+<p>OkHttpUtil 针对 OKHttp 做了一层封装，使 Http 请求变得无比简单。</p>
+<p>说明一下：这里只是以 OkHttpUtil 为例，像 Hutool 附带的 HTTP 请求工具类、Retrofit 同样比较好用，选择一个适合自己的就好。 </p>
+<h2 id="OKHttpUtil-功能"><a href="#OKHttpUtil-功能" class="headerlink" title="OKHttpUtil 功能"></a>OKHttpUtil 功能</h2><ul>
+<li>根据 URL 自动判断是请求 HTTP 还是 HTTPS，不需要单独写多余的代码。</li>
+<li>默认情况下 Cookie 自动记录，比如可以实现模拟登录，即第一次访问登录 URL 后后续请求就是登录状态。</li>
+<li>自动识别 304 跳转并二次请求</li>
+<li>支持代理配置</li>
+<li>支持 referer 配置</li>
+<li>支持 User-Agent 配置</li>
+<li>自动识别并解压 Gzip 格式返回内容</li>
+<li>支持 springboot 配置文件</li>
+<li>极简的封装调用</li>
+</ul>
+<h2 id="OKHttpUtil-使用"><a href="#OKHttpUtil-使用" class="headerlink" title="OKHttpUtil 使用"></a>OKHttpUtil 使用</h2><p>maven 引入</p>
+<pre><code class="java">&lt;dependency&gt;
+    &lt;groupId&gt;io.github.admin4j&lt;/groupId&gt;
+    &lt;artifactId&gt;http&lt;/artifactId&gt;
+    &lt;version&gt;0.4.4&lt;/version&gt;
+&lt;/dependency&gt;
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
+<p>最新版查询：<a target="_blank" rel="noopener" href="https://search.maven.org/artifact/io.github.admin4j/http">https://search.maven.org/artifact/io.github.admin4j/http</a></p>
+<p>源码地址：<a target="_blank" rel="noopener" href="https://github.com/admin4j/common-http">https://github.com/admin4j/common-http</a></p>
+<h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><p>最简单的使用莫过于用 HttpUtil 工具类快速请求某个接口：</p>
+<pre><code>Response response = HttpUtil.get(&quot;https://github.com/search&quot;, Pair.of(&quot;q&quot;, &quot;okhttp&quot;));
+System.out.println(&quot;response = &quot; + response);
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
+<h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><p>一行代码即可搞定，当然 Post 请求也很简单：</p>
+<pre><code class="java">// JSON 格式的body
+Response post = HttpUtil.post(&quot;https://oapi.dingtalk.com/robot/send?access_token=27f5954ab60ea8b2e431ae9101b1289c138e85aa6eb6e3940c35ee13ff8b6335&quot;, &quot;&#123;\&quot;msgtype\&quot;: \&quot;text\&quot;,\&quot;text\&quot;: &#123;\&quot;content\&quot;:\&quot;【反馈提醒】我就是我, 是不一样的烟火\&quot;&#125;&#125;&quot;);
+System.out.println(&quot;post = &quot; + post);
+
+// form 请求
+Map&lt;String, Object&gt; formParams = new HashMap&lt;&gt;(16);
+formParams.put(&quot;username&quot;, &quot;admin&quot;);
+formParams.put(&quot;password&quot;, &quot;admin123&quot;);
+Response response = HttpUtil.postForm(&quot;http://192.168.1.13:9100/auth/login&quot;,
+                formParams
+);
+System.out.println(&quot;response = &quot; + response);
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
+<p>返回格式为 JSON 的 可以使用 HttpJsonUtil 自动返回 JsonObject</p>
+<pre><code class="java">JSONObject object=HttpJsonUtil.get(&quot;https://github.com/search&quot;,
+Pair.of(&quot;q&quot;,&quot;http&quot;),
+Pair.of(&quot;username&quot;,&quot;agonie201218&quot;));
+System.out.println(&quot;object = &quot;+object);
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h3><pre><code class="java">File file=new File(&quot;C:\\Users\\andanyang\\Downloads\\Sql.txt&quot;);
+Map&lt;String, Object&gt; formParams=new HashMap&lt;&gt;();
+formParams.put(&quot;key&quot;,&quot;test&quot;);
+formParams.put(&quot;file&quot;,file);
+formParams.put(&quot;token&quot;,&quot;WXyUseb-D4sCum-EvTIDYL-mEehwDtrSBg-Zca7t:qgOcR2gUoKmxt-VnsNb657Oatzo=:eyJzY29wZSI6InpoYW56aGkiLCJkZWFkbGluZSI6MTY2NTMwNzUxNH0=&quot;);
+Response response=HttpUtil.upload(&quot;https://upload.qiniup.com/&quot;,formParams);
+System.out.println(response);
+</code></pre>
+<h3 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h3><pre><code class="java">HttpUtil.down(&quot;https://gitee.com/admin4j/common-http&quot;,&quot;path/&quot;);
+</code></pre>
+<h3 id="Http3Request-链式请求"><a href="#Http3Request-链式请求" class="headerlink" title="Http3Request 链式请求"></a>Http3Request 链式请求</h3><pre><code class="java">// get
+Response response=HttpRequest.get(&quot;https://search.gitee.com/?skin=rec&amp;type=repository&quot;)
+      .queryMap(&quot;q&quot;,&quot;admin4j&quot;)
+      .header(HttpHeaderKey.USER_AGENT,&quot;admin4j&quot;)
+      .execute();
+      System.out.println(&quot;response = &quot;+response);
+
+// post form
+Response response=HttpRequest.get(&quot;http://192.168.1.13:9100/auth/login&quot;)
+      .queryMap(&quot;q&quot;,&quot;admin4j&quot;)
+      .header(HttpHeaderKey.USER_AGENT,&quot;admin4j&quot;)
+      .form(&quot;username&quot;,&quot;admin&quot;)
+      .form(&quot;password&quot;,&quot;admin123&quot;)
+      .execute();
+      System.out.println(&quot;response = &quot;+response);
+</code></pre>
+<h3 id="开启日志"><a href="#开启日志" class="headerlink" title="开启日志"></a>开启日志</h3><pre><code class="java">logging:
+  level:
+    io.github.admin4j.http.core: debug
+</code></pre>
+<p>post form 日志</p>
+<pre><code class="java">16:49:14.092[main]DEBUG io.github.admin4j.http.core.HttpLogger- --&gt;GET http://192.168.1.13:9100/auth/login?q=admin4j http/1.1
+16:49:14.094[main]DEBUG io.github.admin4j.http.core.HttpLogger-User-Agent:admin4j
+16:49:14.094[main]DEBUG io.github.admin4j.http.core.HttpLogger-Host:192.168.1.13:9100
+16:49:14.094[main]DEBUG io.github.admin4j.http.core.HttpLogger-Connection:Keep-Alive
+16:49:14.094[main]DEBUG io.github.admin4j.http.core.HttpLogger-Accept-Encoding:gzip
+16:49:14.094[main]DEBUG io.github.admin4j.http.core.HttpLogger- --&gt;END GET
+16:49:14.670[main]DEBUG io.github.admin4j.http.core.HttpLogger-&lt;--200OK http://192.168.1.13:9100/auth/login?q=admin4j (575ms)
+16:49:14.670[main]DEBUG io.github.admin4j.http.core.HttpLogger-transfer-encoding:chunked
+16:49:14.670[main]DEBUG io.github.admin4j.http.core.HttpLogger-Vary:Origin
+16:49:14.670[main]DEBUG io.github.admin4j.http.core.HttpLogger-Vary:Access-Control-Request-Method
+16:49:14.670[main]DEBUG io.github.admin4j.http.core.HttpLogger-Vary:Access-Control-Request-Headers
+16:49:14.670[main]DEBUG io.github.admin4j.http.core.HttpLogger-Vary:Origin
+16:49:14.670[main]DEBUG io.github.admin4j.http.core.HttpLogger-Vary:Access-Control-Request-Method
+16:49:14.670[main]DEBUG io.github.admin4j.http.core.HttpLogger-Vary:Access-Control-Request-Headers
+16:49:14.671[main]DEBUG io.github.admin4j.http.core.HttpLogger-Content-Type:application/json;charset=utf-8
+16:49:14.671[main]DEBUG io.github.admin4j.http.core.HttpLogger-Date:Tue,08Nov 2022 08:49:14GMT
+16:49:14.671[main]DEBUG io.github.admin4j.http.core.HttpLogger-
+16:49:14.671[main]DEBUG io.github.admin4j.http.core.HttpLogger-&#123;&quot;code&quot;:406,&quot;msg&quot;:&quot;Full authentication is required to access this resource&quot;&#125;
+16:49:14.671[main]DEBUG io.github.admin4j.http.core.HttpLogger-&lt;--END HTTP(76-byte body)
+response=Response&#123;protocol=http/1.1,code=200,message=OK,url=http://192.168.1.13:9100/auth/login?q=admin4j&#125;
+</code></pre>
+<h2 id="在-Springboot-中使用"><a href="#在-Springboot-中使用" class="headerlink" title="在 Springboot 中使用"></a>在 Springboot 中使用</h2><p>maven 引入</p>
+<pre><code class="java">&lt;dependency&gt;
+    &lt;groupId&gt;io.github.admin4j&lt;/groupId&gt;
+    &lt;artifactId&gt;common-http-starter&lt;/artifactId&gt;
+    &lt;version&gt;0.4.4&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>最新版查询：io.github.admin4j:common-http-starter</p>
+<p>Spring 版可以对 OkHttp 进行个性化配置</p>
+<p>配置详见</p>
+<pre><code class="java">public class HttpConfig &#123;
+
+
+    /**
+     * 日志等级
+     */
+    private HttpLoggingInterceptor.Level loggLevel = HttpLoggingInterceptor.Level.BODY;
+
+    /**
+     * 读取超时时间，秒
+     */
+    private long readTimeout = 30;
+    /**
+     * 链接超时时间
+     */
+    private long connectTimeout = 30;
+
+    private boolean followRedirects = false;
+
+    /**
+     * 最大的连接数
+     */
+    private int maxIdleConnections = 5;
+
+    /**
+     * 最大的kepAlive 时间 秒
+     */
+    private long keepAliveDuration = 5;
+
+    private String userAgent = &quot;OKHTTP&quot;;
+    /**
+     * 是否支持cookie
+     */
+    private boolean cookie = false;
+    private ProxyConfig proxy;
+
+
+    @Data
+    public static class ProxyConfig &#123;
+
+        private Proxy.Type type = Proxy.Type.HTTP;
+        private String host;
+        private Integer port = 80;
+        private String userName;
+        private String password;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="如何快速封装外部接口"><a href="#如何快速封装外部接口" class="headerlink" title="如何快速封装外部接口"></a>如何快速封装外部接口</h3><p>以实体项目为例，封装 ebay 接口</p>
+<pre><code class="java">public class EbayClient extends ApiJsonClient &#123;
+
+    /**
+     * 店铺配置
+     *
+     * @param storeId
+     */
+    public EbayClient(Long storeId) &#123;
+
+        //TODO 获取店铺相关配置
+        Map&lt;String, String&gt; config = new HashMap&lt;&gt;();
+
+        basePath = &quot;https://api.ebay.com&quot;;
+        defaultHeaderMap.put(&quot;Authorization&quot;, &quot;Bearer &quot; + config.get(&quot;accessToken&quot;));
+        defaultHeaderMap.put(&quot;X-EBAY-C-MARKETPLACE-ID&quot;, config.get(&quot;marketplaceId&quot;));
+    &#125;
+&#125;
+</code></pre>
+<p>EbayClient 封装 ebay api 请求 基础类</p>
+<pre><code class="java">/**
+ * ebay 库存相关api
+ * @author andanyang
+ */
+public class EbayInventoryClient extends EbayClient &#123;
+
+    /**
+     * 店铺配置
+     *
+     * @param storeId
+     */
+    public EbayInventoryClient(Long storeId) &#123;
+        super(storeId);
+    &#125;
+
+    /**
+     * 库存列表
+     *
+     * @param limit
+     * @param offset
+     * @return
+     * @throws IOException
+     */
+    public JSONObject inventoryItem(Integer limit, Integer offset) throws IOException &#123;
+
+        Map&lt;String, Object&gt; queryMap = new HashMap(2);
+        queryMap.put(&quot;limit&quot;, limit);
+        queryMap.put(&quot;offset&quot;, offset);
+        return get(&quot;/sell/inventory/v1/inventory_item&quot;, queryMap);
+    &#125;
+&#125;
+</code></pre>
+<p>EbayInventoryClient 封装 ebay 库存 api 请求 使用</p>
+<pre><code class="java"> EbayInventoryClient ebayInventoryClient=new EbayInventoryClient(1L);
+JSONObject jsonObject=ebayInventoryClient.inventoryItem(0,10);
+/**
+ * 订单相关api
+ * @author andanyang
+ */
+public class EbayOrderClient extends EbayClient &#123;
+
+
+    /**
+     * 店铺配置
+     *
+     * @param storeId
+     */
+    public EbayOrderClient(Long storeId) &#123;
+        super(storeId);
+    &#125;
+
+    /**
+     * 订单列表
+     *
+     * @param beginTime
+     * @param endTime
+     * @param limit
+     * @param offset
+     * @return
+     */
+    public JSONObject orders(String beginTime, String endTime, int limit, int offset) &#123;
+
+        final String path = &quot;/sell/fulfillment/v1/order&quot;;
+
+        String filter = MessageFormat.format(&quot;lastmodifieddate:[&#123;0&#125;..&#123;1&#125;]&quot;, beginTime, endTime);
+
+        //
+        Map&lt;String, Object&gt; queryMap = new HashMap&lt;&gt;(8);
+        queryMap.put(&quot;filter&quot;, filter);
+        queryMap.put(&quot;limit&quot;, limit);
+        queryMap.put(&quot;offset&quot;, offset);
+
+        return get(&quot;/sell/inventory/v1/inventory_item&quot;, queryMap);
+    &#125;
+&#125;
+</code></pre>
+<p>库存相关的使用<code>EbayInventoryClient</code>,订单相关的使用<code>EbayOrderClient</code>,是不是很清晰</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 1667623738@qq.com </span>
